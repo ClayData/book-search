@@ -1,0 +1,28 @@
+{
+  "name": "book-search",
+  "version": "1.0.0",
+  "description": "Searches google books api and users may then view details and save books to their bookshelf",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClayData/book-search.git"
+  },
+  "keywords": [
+    "React",
+    "Node",
+    "Mongo"
+  ],
+  "author": "Clayton Ortiz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClayData/book-search/issues"
+  },
+  "homepage": "https://github.com/ClayData/book-search#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.13"
+  }
+}
