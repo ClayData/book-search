@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, List } from '@material-ui/core';
+import Item from '../components/List/Item';
 import searchBooks from '../utils/API';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      maxWidth: '36ch',
+      backgroundColor: theme.palette.background.paper,
+    },
+  }));
 
 
 function Search() {
+    const classes = useStyles();
 
     const [books, setBooks] = useState([]);
     const [formString, setFormString] = useState({
@@ -14,9 +24,9 @@ function Search() {
    async function getData(val) {
        try{
         let response = await searchBooks(val);
-        setBooks(response)
+        console.log(response)
+        setBooks(response.items)
         
-
        } catch (err){
         console.err(err)
     }
@@ -25,13 +35,12 @@ function Search() {
     function handleInputChange(event) {
         const value = event.target.value.trim().toLowerCase();
         setFormString({ title: value});
-        console.log(formString.title)
+        
     }
 
     function handleFormSubmit(event) {
         event.preventDefault();
             getData(formString.title);
-        
     }
 
     return(
@@ -56,6 +65,17 @@ function Search() {
                 color="primary">
                     Submit
                 </Button>
+                <List className={classes.root}>
+                    {books.map((book) => {
+                        return(
+                            <Item 
+                            title={book.volumeInfo.title}
+                            image={book.volumeInfo.imageLinks.smallThumbnail}
+                            description={book.volumeInfo.description}
+                            />
+                        )
+                    })}
+                </List>
             </form>
         </div>
     )
