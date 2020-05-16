@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, List } from '@material-ui/core';
+import { TextField, Button, List, Divider } from '@material-ui/core';
 import Item from '../components/List/Item';
 import API from '../utils/API';
 
@@ -110,6 +110,7 @@ function Search() {
                                 view
                               </a>
                             </button>
+                            <Divider />
                             </div>
                         )
                     })}
