@@ -33,13 +33,8 @@ function Item(props) {
           </React.Fragment>
         }
       />
-      <button
-      id={props.id}
-      onClick={props.onClick}
-      type="submit"
-      >
-        Save
-      </button>
+      
+        
     </ListItem>
     )
 }

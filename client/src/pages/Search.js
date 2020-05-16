@@ -52,7 +52,8 @@ function Search() {
                     title: books[i].volumeInfo.title,
                     authors: books[i].volumeInfo.authors,
                     image: books[i].volumeInfo.imageLinks.smallThumbnail,
-                    description: books[i].volumeInfo.description
+                    description: books[i].volumeInfo.description,
+                    view: books[i].volumeInfo.infoLink
                 }
                 console.log(dataPacket)
                 API.saveBook(dataPacket)
@@ -85,6 +86,7 @@ function Search() {
                 <List className={classes.root}>
                     {books.map((book) => {
                         return(
+                            <div>
                             <Item 
                             key={book.etag}
                             id={book.id}
@@ -92,8 +94,23 @@ function Search() {
                             title={book.volumeInfo.title}
                             image={book.volumeInfo.imageLinks.smallThumbnail}
                             description={book.volumeInfo.description}
-                            onClick={handleOnClick}
+                            
+                            
                             />
+                            
+                            <button
+                            id={book.id}
+                            onClick={handleOnClick}
+                            type="submit"
+                            >
+                              Save
+                            </button>
+                            <button type="button">
+                              <a href={book.volumeInfo.infoLink}>
+                                view
+                              </a>
+                            </button>
+                            </div>
                         )
                     })}
                 </List>
