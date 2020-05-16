@@ -50,7 +50,7 @@ function Search() {
             if(books[i].id === book.id){
                 let dataPacket = {
                     title: books[i].volumeInfo.title,
-                    author: books[i].volumeInfo.author,
+                    authors: books[i].volumeInfo.authors,
                     image: books[i].volumeInfo.imageLinks.smallThumbnail,
                     description: books[i].volumeInfo.description
                 }
@@ -88,7 +88,7 @@ function Search() {
                             <Item 
                             key={book.etag}
                             id={book.id}
-                            author={book.volumeInfo.author}
+                            authors={book.volumeInfo.authors}
                             title={book.volumeInfo.title}
                             image={book.volumeInfo.imageLinks.smallThumbnail}
                             description={book.volumeInfo.description}
