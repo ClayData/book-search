@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListItem, ListItemText, ListItemAvatar, Avatar, Typography, Button } from '@material-ui/core';
+import { ListItem, ListItemText, ListItemAvatar, Avatar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,10 +33,13 @@ function Item(props) {
           </React.Fragment>
         }
       />
-      <Button
-      variant="contained" 
-      color="primary"
-      >Save</Button>
+      <button
+      id={props.id}
+      onClick={props.onClick}
+      type="submit"
+      >
+        Save
+      </button>
     </ListItem>
     )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button, List } from '@material-ui/core';
 import Item from '../components/List/Item';
-import searchBooks from '../utils/API';
+import API from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,8 +22,8 @@ function Search() {
 
    async function getData(val) {
        try{
-        let response = await searchBooks(val);
-        console.log(response)
+        let response = await API.searchGoogle(val);
+        console.log(response.items)
         setBooks(response.items)
         
        } catch (err){
@@ -40,6 +40,24 @@ function Search() {
     function handleFormSubmit(event) {
         event.preventDefault();
             getData(formString.title);
+    }
+
+    function handleOnClick(event) {
+        event.preventDefault()
+        let book = (event.target)
+        console.log(books)
+        for(let i = 0; i < books.length; i++){
+            if(books[i].id === book.id){
+                let dataPacket = {
+                    title: books[i].volumeInfo.title,
+                    author: books[i].volumeInfo.author,
+                    image: books[i].volumeInfo.imageLinks.smallThumbnail,
+                    description: books[i].volumeInfo.description
+                }
+                console.log(dataPacket)
+                API.saveBook(dataPacket)
+            }
+        }
     }
 
     return(
@@ -68,9 +86,13 @@ function Search() {
                     {books.map((book) => {
                         return(
                             <Item 
+                            key={book.etag}
+                            id={book.id}
+                            author={book.volumeInfo.author}
                             title={book.volumeInfo.title}
                             image={book.volumeInfo.imageLinks.smallThumbnail}
                             description={book.volumeInfo.description}
+                            onClick={handleOnClick}
                             />
                         )
                     })}
