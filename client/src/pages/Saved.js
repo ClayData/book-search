@@ -20,7 +20,17 @@ function Saved() {
         API.getBooks().then((results) => {
             setBooks(results.data)
         });
-    }, [])
+    }, []);
+
+    const handleOnClick = (id) => {
+        
+        API.deleteBook(id).then((res) => {
+            API.getBooks().then((results) => {
+                setBooks(results.data)
+            })
+        })
+    }
+    
 
     return(
         <div>
@@ -29,7 +39,7 @@ function Saved() {
                         return(
                             <div>
                             <Item 
-                            key={book.etag}
+                            key={book._id}
                             id={book.id}
                             authors={book.authors}
                             title={book.title}
@@ -39,6 +49,11 @@ function Saved() {
                             <button type="button">
                                 <a href={book.view}>
                                     view
+                                </a>
+                         </button>
+                         <button type="button">
+                                <a onClick={() => handleOnClick(book._id)}>
+                                    remove
                                 </a>
                          </button>
                          <Divider />
