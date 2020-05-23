@@ -31,7 +31,12 @@ export default function MenuButton() {
             onClose={handleClose}
             >
             <MenuItem onClick={handleClose}>
-                <Link to="/search" className={location.pathname === "/" ? "nav-link active" : "nav-link"}>
+                <Link to="/signin" className={location.pathname === "/" ? "nav-link active" : "nav-link"}>
+                    Sign Out
+                </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+                <Link to="/search" className={location.pathname === "/search" ? "nav-link active" : "nav-link"}>
                     Search
                 </Link>
             </MenuItem>

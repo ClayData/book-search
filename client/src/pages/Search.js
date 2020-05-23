@@ -1,35 +1,33 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, List, Divider } from '@material-ui/core';
-import Item from '../components/List/Item';
+import { TextField, Button } from '@material-ui/core';
+import Paginate from '../components/List/Paginate';
 import API from '../utils/API';
+import Books from '../components/List/Books';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-      backgroundColor: theme.palette.background.paper,
-    },
-  }));
 
 
 function Search() {
-    const classes = useStyles();
+    
 
     const [books, setBooks] = useState([]);
     const [formString, setFormString] = useState({
         title: ""
     })
+    const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10)
+   
 
-   async function getData(val) {
-       try{
-        let response = await API.searchGoogle(val);
-        console.log(response.items)
-        setBooks(response.items)
-        
-       } catch (err){
-        console.err(err)
-    }
-    }
+    async function getData(val) {
+        try{
+            setLoading(true)
+         const response = await API.searchGoogle(val);
+         setBooks(response.items)
+         setLoading(false)
+        } catch (err){
+         console.err(err)
+        }
+     }
 
     function handleInputChange(event) {
         const value = event.target.value.trim().toLowerCase();
@@ -42,24 +40,13 @@ function Search() {
             getData(formString.title);
     }
 
-    function handleOnClick(event) {
-        event.preventDefault()
-        let book = (event.target)
-        console.log(books)
-        for(let i = 0; i < books.length; i++){
-            if(books[i].id === book.id){
-                let dataPacket = {
-                    title: books[i].volumeInfo.title,
-                    authors: books[i].volumeInfo.authors,
-                    image: books[i].volumeInfo.imageLinks.smallThumbnail,
-                    description: books[i].volumeInfo.description,
-                    view: books[i].volumeInfo.infoLink
-                }
-                console.log(dataPacket)
-                API.saveBook(dataPacket)
-            }
-        }
-    }
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentBooks = books.slice(indexOfFirstPost, indexOfLastPost);
+    
+    const handleChange = (event, value) => {
+        setCurrentPage(value);
+      };
 
     return(
         <div>
@@ -83,39 +70,13 @@ function Search() {
                 color="primary">
                     Submit
                 </Button>
-                <List className={classes.root}>
-                    {books.map((book) => {
-                        return(
-                            <div>
-                            <Item 
-                            key={book.etag}
-                            id={book.id}
-                            authors={book.volumeInfo.authors}
-                            title={book.volumeInfo.title}
-                            image={book.volumeInfo.imageLinks.smallThumbnail}
-                            description={book.volumeInfo.description}
-                            
-                            
-                            />
-                            
-                            <button
-                            id={book.id}
-                            onClick={handleOnClick}
-                            type="submit"
-                            >
-                              Save
-                            </button>
-                            <button type="button">
-                              <a href={book.volumeInfo.infoLink}>
-                                view
-                              </a>
-                            </button>
-                            <Divider />
-                            </div>
-                        )
-                    })}
-                </List>
-            </form>
+                </form>
+                <Books books={currentBooks} loading={loading}/>
+            <Paginate 
+            count={4}
+            page={currentPage}
+            onChange={handleChange}
+            />
         </div>
     )
 }

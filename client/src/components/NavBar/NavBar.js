@@ -21,7 +21,7 @@ export default function NavBar() {
         <Toolbar>
           <MenuButton />
           <Typography variant="h6" className={classes.title}>
-            Book-Self
+            Book-Zelf
           </Typography>
         </Toolbar>
       </AppBar>
