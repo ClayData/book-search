@@ -6,7 +6,7 @@ This application searchs the google books api and returns books with titles asso
 ### Search Page: 
 Any visitor to the site may search books but in order to save the books to a personal shelf the user must be logged in.
 
-![](client/images/searchpage.png)
+![](client/src/images/searchpage.png)
 
 ### Saved Page: 
 The saved page is also known as the shelf and displays the users saved books. 
