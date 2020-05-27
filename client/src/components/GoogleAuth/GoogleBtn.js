@@ -1,10 +1,12 @@
 import React from 'react';
-import './GoogleBtn.css'
+import { Button } from '@material-ui/core';
+import './GoogleBtn.css';
 
-function GoogleBtn() {
+
+function GoogleBtn(props) {
     return(
-    <button>Google</button>
-  
+    <Button onClick={props.onClick} style={{backgroundColor: "#fff", fontSize: "1rem"}} startIcon={<i class="fab fa-google"></i>}>{props.children}</Button>
+        
     )
 }
 

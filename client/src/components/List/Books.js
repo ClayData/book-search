@@ -23,6 +23,7 @@ const Books = ({ books, loading }) => {
             if(books[i].id === book.id){
                 let dataPacket = {
                     title: books[i].volumeInfo.title,
+                    user: sessionStorage.getItem("currentUser"),
                     authors: books[i].volumeInfo.authors,
                     image: books[i].volumeInfo.imageLinks.smallThumbnail,
                     description: books[i].volumeInfo.description,
@@ -40,11 +41,11 @@ const Books = ({ books, loading }) => {
 
     return (
         <List className={classes.root}>
-                    {books.map((book) => {
+                    {books.map((book, i) => {
                         return(
                             <div>
                             <Item 
-                            key={book.etag}
+                            key={i}
                             id={book.id}
                             authors={book.volumeInfo.authors}
                             title={book.volumeInfo.title}

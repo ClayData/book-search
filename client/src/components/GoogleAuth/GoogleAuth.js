@@ -1,5 +1,5 @@
-import React, { useState ,useEffect } from 'react';
-
+import React from 'react';
+import GoogleBtn from './GoogleBtn'
 
 class GoogleAuth extends React.Component {
     state = { isSignedIn: null }
@@ -22,21 +22,29 @@ class GoogleAuth extends React.Component {
     }
 
     onSignInClick = () => {
-      this.auth.signIn()
+      this.auth.signIn().then(res => {
+        sessionStorage.setItem("currentUser", this.auth.currentUser.le.Tt.Bd)
+        this.props.updateUser()
+      })
+      
     }
 
     onSignOutClick = () => {
-      this.auth.signOut()
+      this.auth.signOut().then(res => {
+      sessionStorage.clear();
+      this.props.updateUser()
+        }
+      )
     }
 
     renderAuthButton() {
         if(this.state.isSignedIn === null) {
             return null;
         }else if(this.state.isSignedIn){
-            return <button onClick={this.onSignOutClick}>Sign Out</button>
+            return <GoogleBtn onClick={this.onSignOutClick} >Google Sign Out</GoogleBtn>
         }
         else{
-            return <button onClick={this.onSignInClick}>Sign In</button>
+            return <GoogleBtn onClick={this.onSignInClick} >Google Sign In</GoogleBtn>
         }
     }
 
