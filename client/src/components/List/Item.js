@@ -18,7 +18,7 @@ function Item(props) {
         <Avatar alt={props.title} src={props.image} variant="square"/>
       </ListItemAvatar>
       <ListItemText
-        primary={props.title}
+        primary={`${props.title}, by: ${props.authors}`}
         secondary={
           <React.Fragment>
             <Typography
