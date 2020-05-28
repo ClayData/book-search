@@ -3,6 +3,7 @@ import API from '../../utils/API'
 import { List, Divider } from '@material-ui/core';
 import Item from './Item';
 import { makeStyles } from '@material-ui/core'
+import { PromiseProvider } from 'mongoose';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Books = ({ books, loading }) => {
     const classes = useStyles();
+    const userEmail = sessionStorage.getItem("currentEmail")
 
     function handleOnClick(event) {
         event.preventDefault()
@@ -23,7 +25,7 @@ const Books = ({ books, loading }) => {
             if(books[i].id === book.id){
                 let dataPacket = {
                     title: books[i].volumeInfo.title,
-                    user: sessionStorage.getItem("currentUser"),
+                    user: userEmail,
                     authors: books[i].volumeInfo.authors,
                     image: books[i].volumeInfo.imageLinks.smallThumbnail,
                     description: books[i].volumeInfo.description,

@@ -13,19 +13,19 @@ const useStyles = makeStyles((theme) => ({
 
 function Saved() {
     const classes = useStyles();
-
+    const currentUser = sessionStorage.getItem("currentEmail")
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        API.getBooks().then((results) => {
+        API.userBooks(currentUser).then((results) => {
             setBooks(results.data)
         });
     }, []);
 
     const handleOnClick = (id) => {
         
-        API.deleteBook(id).then((res) => {
-            API.getBooks().then((results) => {
+        API.userBook(id).then((res) => {
+            API.getBooks(currentUser).then((results) => {
                 setBooks(results.data)
             })
         })

@@ -24,6 +24,7 @@ class GoogleAuth extends React.Component {
     onSignInClick = () => {
       this.auth.signIn().then(res => {
         sessionStorage.setItem("currentUser", this.auth.currentUser.le.Tt.Bd)
+        sessionStorage.setItem("currentEmail", this.auth.currentUser.le.Tt.Du)
         this.props.updateUser()
       })
       

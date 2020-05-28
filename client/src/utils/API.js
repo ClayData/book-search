@@ -16,6 +16,9 @@ export default {
     getBooks: function(){
         return axios.get("/api/books")
     },
+    userBooks: function(user) {
+        return axios.get(`api/books/${user}`)
+    },
     saveBook: function(bookData) {
         return axios.post("/api/books", bookData)
     },
