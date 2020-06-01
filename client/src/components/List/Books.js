@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import API from '../../utils/API'
-import { List, Divider } from '@material-ui/core';
+import { List, Divider, Snackbar } from '@material-ui/core';
 import Item from './Item';
-import { makeStyles } from '@material-ui/core'
-import { PromiseProvider } from 'mongoose';
-
+import { makeStyles } from '@material-ui/core';
+import SaveAlert from './SaveAlert'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 const Books = ({ books, loading }) => {
     const classes = useStyles();
     const userEmail = sessionStorage.getItem("currentEmail")
+    const [error, setError] = useState(false)
 
     function handleOnClick(event) {
         event.preventDefault()
@@ -32,7 +32,12 @@ const Books = ({ books, loading }) => {
                     view: books[i].volumeInfo.infoLink
                 }
                 console.log(dataPacket)
-                API.saveBook(dataPacket)
+                API.saveBook(dataPacket).then(res => {
+                  console.log(res)
+                }).catch(err => {
+                  console.log(err);
+                  setError(true)
+                })
             }
         }
     }
@@ -66,6 +71,7 @@ const Books = ({ books, loading }) => {
                                 view
                               </a>
                             </button>
+                            <SaveAlert style={error ? {visibility: "visible"} : {visibility: "hidden"}} />
                             <Divider />
                             </div>
                         )

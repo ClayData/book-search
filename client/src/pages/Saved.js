@@ -24,7 +24,7 @@ function Saved() {
 
     const handleOnClick = (id) => {
         
-        API.userBook(id).then((res) => {
+        API.deleteBook(id).then((res) => {
             API.getBooks(currentUser).then((results) => {
                 setBooks(results.data)
             })
