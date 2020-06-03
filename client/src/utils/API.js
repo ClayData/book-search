@@ -1,16 +1,17 @@
 import axios from "axios";
-
+require('dotenv').config();
 
 export default {
 
     searchGoogle: async function(params) {
     try {
-    const key = "AIzaSyC4OhWXg4XXTic12EI3RlBu_7SsG96Tcn4";
+    const key = process.env.REACT_APP_KEY;
     let response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params}&filter=ebooks&maxResults=40&startIndex=0&key=${key}`) 
     return response.data
+    
     }
     catch (err){
-        console.err(err)
+        console.log(err)
     }
     },
     getBooks: function(){
