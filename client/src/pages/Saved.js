@@ -31,7 +31,6 @@ function Saved() {
         })
     }
     
-
     return(
         <div>
             <List className={classes.root}>
