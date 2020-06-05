@@ -1,6 +1,8 @@
 # book-search
 This application searchs the google books api and returns books with titles associated to the text entered. Users may go visit the book on the google books marketplace or save the listing provided to their very own shelf. The shelf displays the different books that have been saved to it. It is a great way to keep track of books you may want to read in the future. 
 
+# LIVE SITE CURRENTLY EXPERIENCING TECHNICAL DIFFICULTIES
+
 ### Live-Site url: https://book-zelf.herokuapp.com/
 
 ### Search Page: 
